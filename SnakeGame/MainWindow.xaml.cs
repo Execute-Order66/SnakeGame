@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -21,6 +22,10 @@ namespace SnakeGame
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string Konami = "";
+
+
+        private int speed = 100;
 
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
@@ -41,11 +46,25 @@ namespace SnakeGame
         private readonly Image[,] gridImages;
         private GameState gameState;
         private bool gameRunning;
+        private int highScore = 0;
         public MainWindow()
         {
             InitializeComponent();
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
+            string fileName = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "highScore.txt)");
+            if (File.Exists(fileName))
+            {
+                StreamReader sr = new StreamReader(fileName);
+                highScore = int.Parse(sr.ReadLine());
+                sr.Close();
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(fileName);
+                sw.WriteLine(highScore);
+                sw.Close();
+            }
         }
         private async Task RunGame()
         {
@@ -73,6 +92,8 @@ namespace SnakeGame
         }
 
 
+
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (gameState.GameOver)
@@ -84,24 +105,33 @@ namespace SnakeGame
             {
                 case Key.Left:
                     gameState.ChangeDirection(Direction.Left);
+                    Konami += "L";
                     break;
                 case Key.Right:
                     gameState.ChangeDirection(Direction.Right);
+                    Konami += "R";
                     break;
                 case Key.Up:
                     gameState.ChangeDirection(Direction.Up);
+                    Konami += "U";
                     break;
                 case Key.Down:
                     gameState.ChangeDirection(Direction.Down);
+                    Konami += "D";
                     break;
-
+                    //add a string checker as well as a way to save strings entered.
+            }
+            if (Konami.Contains("UDLR"))
+            {
+                Konami = "";
+                speed += 50;
             }
         }
         private async Task GameLoop()
         {
             while (!gameState.GameOver)
             {
-                await Task.Delay(100);
+                await Task.Delay(speed);
                 gameState.Move();
                 Draw();
             }
@@ -174,8 +204,10 @@ namespace SnakeGame
                 ImageSource source = (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[pos.Row, pos.Col].Source = source;
 
+                Audio.DeathSound.Play();
+
                 //Delay for each body death. for a quicker death, set number smaller
-                await Task.Delay(25);
+                await Task.Delay(50);
             }
         }
 
@@ -190,9 +222,26 @@ namespace SnakeGame
 
         private async Task ShowGameOver()
         {
+            if (gameState.Score > highScore)
+            {
+                highScore = gameState.Score;
+                StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\highScore.txt");
+                sw.WriteLine(highScore);
+                sw.Close();
+            }
+            HighScoreText.Text = $"HIGH SCORE: {highScore}";
+            if (speed > 100)
+            {
+                speed = 100;
+            }
             await DrawDeadSnake();
+            
             await Task.Delay(1000);
+            
             Overlay.Visibility = Visibility.Visible;
+
+            Audio.Theme.Play();
+
             OverlayText.Text = "PRESS ANY KEY TO START";
         }
     }

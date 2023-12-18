@@ -18,6 +18,7 @@ namespace SnakeGame
         private readonly LinkedList<Direction> dirChanges = new LinkedList<Direction>();
         private readonly LinkedList<Position> snakePositions = new LinkedList<Position>();  
         private readonly Random random = new Random();
+        
 
         public GameState(int rows, int cols)
         {
@@ -170,6 +171,7 @@ namespace SnakeGame
             }
             else if (hit == GridValue.Food)
             {
+                Audio.EatFood.Play();
                 AddHead(newHeadPos);
                 Score ++;
                 AddFood();

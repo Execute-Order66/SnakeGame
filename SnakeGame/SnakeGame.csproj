@@ -8,20 +8,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Body - Copy.png" />
+    <None Remove="Assets\among.mp3" />
     <None Remove="Assets\Body.png" />
     <None Remove="Assets\DeadBody.png" />
     <None Remove="Assets\DeadHead.png" />
+    <None Remove="Assets\Death.mp3" />
     <None Remove="Assets\DroidSansMono.ttf" />
     <None Remove="Assets\Empty.png" />
     <None Remove="Assets\Food.png" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon - Copy.ico" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\Space.jpg" />
+    <None Remove="Assets\Theme.mp3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Body - Copy.png" />
+    <Content Include="Assets\among.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Death.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Theme.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Body.png" />
     <Resource Include="Assets\DeadBody.png" />
     <Resource Include="Assets\DeadHead.png" />
@@ -31,6 +45,7 @@
     <Resource Include="Assets\Head.png" />
     <Resource Include="Assets\icon - Copy.ico" />
     <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\Space.jpg" />
   </ItemGroup>
 
 </Project>
