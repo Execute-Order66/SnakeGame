@@ -19,6 +19,7 @@
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon - Copy.ico" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\Impostograph-Regular.ttf" />
     <None Remove="Assets\Space.jpg" />
     <None Remove="Assets\Theme.mp3" />
   </ItemGroup>
@@ -46,6 +47,9 @@
     <Resource Include="Assets\icon - Copy.ico" />
     <Resource Include="Assets\icon.ico" />
     <Resource Include="Assets\Space.jpg" />
+    <Resource Include="Assets\Impostograph-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

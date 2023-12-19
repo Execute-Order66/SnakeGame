@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SnakeGame
 {
@@ -47,6 +48,7 @@ namespace SnakeGame
         private GameState gameState;
         private bool gameRunning;
         private int highScore = 0;
+        private Random random = new Random();
         public MainWindow()
         {
             InitializeComponent();
@@ -207,7 +209,7 @@ namespace SnakeGame
                 Audio.DeathSound.Play();
 
                 //Delay for each body death. for a quicker death, set number smaller
-                await Task.Delay(50);
+                await Task.Delay(75);
             }
         }
 
@@ -222,6 +224,8 @@ namespace SnakeGame
 
         private async Task ShowGameOver()
         {
+            ShakeWindow(2000);
+
             if (gameState.Score > highScore)
             {
                 highScore = gameState.Score;
@@ -229,20 +233,49 @@ namespace SnakeGame
                 sw.WriteLine(highScore);
                 sw.Close();
             }
+
             HighScoreText.Text = $"HIGH SCORE: {highScore}";
+
+
             if (speed > 100)
             {
                 speed = 100;
             }
+
+
             await DrawDeadSnake();
-            
-            await Task.Delay(1000);
-            
-            Overlay.Visibility = Visibility.Visible;
 
             Audio.Theme.Play();
 
+            await Task.Delay(1000);
+
+
+            
+            Overlay.Visibility = Visibility.Visible;
+
+            
+
             OverlayText.Text = "PRESS ANY KEY TO START";
+        }
+
+        private async Task ShakeWindow(int durationMs)
+        {
+            var oLeft = this.Left;
+            var oTop = this.Top;
+
+            var shakeTimer = new DispatcherTimer();
+            shakeTimer.Tick += (sender, args) =>
+            {
+                this.Left = oLeft + random.Next(-10, 11);
+                this.Top = oTop + random.Next(-10, 11);
+            };
+
+            shakeTimer.Interval = TimeSpan.FromMilliseconds(100);
+            shakeTimer.Start();
+
+            await Task.Delay(durationMs);
+            shakeTimer.Stop();   
+
         }
     }
 }

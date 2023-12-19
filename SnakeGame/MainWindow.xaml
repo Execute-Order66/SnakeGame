@@ -28,14 +28,16 @@
                 Text="HIGH SCORE 0"
                  FontSize="22"
                  Margin="10"
-                 Grid.Row="2"/>
+                 Grid.Row="2"
+                 FontFamily="{StaticResource MainFont}"/>
 
             <TextBlock x:Name="ScoreText"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                Text="SCORE 0"
                FontSize="22"
-               Margin="10"/>
+               Margin="10"
+                FontFamily="{StaticResource MainFont}"/>
 
             <Border x:Name="GridBorder"
             Grid.Row="1"
@@ -67,7 +69,8 @@
                            FontSize="26"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           TextWrapping="Wrap"/>
+                           TextWrapping="Wrap"
+                           FontFamily="{StaticResource MainFont}"/>
             </Border>
         </Grid>
     </Viewbox>
