@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,12 +44,17 @@ namespace SnakeGame
             { Direction.Left, 270 }
         };
 
-        private readonly int rows = 25, cols = 25;
+        private readonly int rows = 28, cols = 28;
+
+
         private readonly Image[,] gridImages;
         private GameState gameState;
         private bool gameRunning;
         private int highScore = 0;
         private Random random = new Random();
+
+        private DispatcherTimer timer;
+        private DateTime startTime;
         public MainWindow()
         {
             InitializeComponent();
@@ -72,6 +78,9 @@ namespace SnakeGame
         {
             Draw();
             await ShowCountDown();
+
+            Start_Timer();
+
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
             await ShowGameOver();
@@ -236,6 +245,8 @@ namespace SnakeGame
 
             HighScoreText.Text = $"HIGH SCORE: {highScore}";
 
+            timer.Stop();
+
 
             if (speed > 100)
             {
@@ -276,6 +287,34 @@ namespace SnakeGame
             await Task.Delay(durationMs);
             shakeTimer.Stop();   
 
+        }
+        
+        private void Start_Timer()
+        {
+          timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+
+            startTime = DateTime.Now;
+
+            timer.Start();
+            
+        }
+
+        private void End_Timer()
+        {
+
+            if (timer != null)
+            {
+                timer.Stop();
+                timer = null;
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+            timerTextBlock.Text = $"{elapsedTime.Hours:D2} : {elapsedTime.Minutes:D2} : {elapsedTime.Seconds:D2}";
         }
     }
 }

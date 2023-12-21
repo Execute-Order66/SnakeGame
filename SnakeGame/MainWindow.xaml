@@ -22,11 +22,20 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
+            
+            
+            <TextBlock x:Name="timerTextBlock"
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom" FontSize="24"
+             FontFamily="{StaticResource MainFont}"/>
+
+            
+            
             <TextBlock x:Name="HighScoreText"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Text="HIGH SCORE 0"
-                 FontSize="22"
+                 FontSize="30"
                  Margin="10"
                  Grid.Row="2"
                  FontFamily="{StaticResource MainFont}"/>
@@ -35,7 +44,7 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                Text="SCORE 0"
-               FontSize="22"
+               FontSize="30"
                Margin="10"
                 FontFamily="{StaticResource MainFont}"/>
 
@@ -65,8 +74,9 @@
                      Margin="{Binding Path=Margin, ElementName=GridBorder}"
                      RenderOptions.EdgeMode="Aliased">
                 <TextBlock x:Name="OverlayText"
+                           Foreground="Red"
                            Text="PRESS ANY KEY TO START"
-                           FontSize="26"
+                           FontSize="40"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            TextWrapping="Wrap"

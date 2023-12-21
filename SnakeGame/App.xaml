@@ -7,7 +7,7 @@
         <SolidColorBrush x:Key="BackgroundColor">#468499</SolidColorBrush>
         <SolidColorBrush x:Key="GridBackgroundColor">#999999</SolidColorBrush>
         <SolidColorBrush x:Key="GridLineColor">#8b0000</SolidColorBrush>
-        <SolidColorBrush x:Key="TextColor">#EBEBEB</SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor">#ffff</SolidColorBrush>
         <SolidColorBrush x:Key="OverlayColor">#7F000000</SolidColorBrush>
         <FontFamily x:Key="MainFont">Assets/#Impostograph Regular</FontFamily>
         
